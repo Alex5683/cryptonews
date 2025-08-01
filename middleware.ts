@@ -10,8 +10,12 @@ export function middleware(request: NextRequest) {
 
     // Check for admin session
     const adminToken = request.cookies.get('admin-token');
+
+    console.log('Middleware - admin-token cookie:', adminToken);
+    console.log('Middleware - process.env.ADMIN_SECRET:', process.env.ADMIN_SECRET);
     
     if (!adminToken || adminToken.value !== process.env.ADMIN_SECRET) {
+      console.log('Middleware - Redirecting to /admin/login due to missing or invalid admin-token');
       return NextResponse.redirect(new URL('/admin/login', request.url));
     }
   }
