@@ -11,14 +11,14 @@ export default function Home() {
       
       <main className="container mx-auto px-4 py-8">
         <section className="mb-12">
-          <div className="text-center mb-8">
+          {/* <div className="text-center mb-8">
             <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
               Tech Insights Hub
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Discover the latest trends, analysis, and insights in technology, finance, and innovation.
             </p>
-          </div>
+          </div> */}
           
           <Suspense fallback={<div className="h-96 bg-gray-200 rounded-lg animate-pulse" />}>
             <FeaturedPost />

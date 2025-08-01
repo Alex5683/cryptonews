@@ -6,10 +6,21 @@ if (!MONGODB_URI) {
   console.warn('MONGODB_URI not found in environment variables. Database features will be disabled.');
 }
 
-let cached = global.mongoose;
+interface CachedMongoose {
+  conn: typeof import('mongoose') | null;
+  promise: Promise<typeof import('mongoose')> | null;
+  models: Record<string, any>;
+}
+
+declare global {
+  // eslint-disable-next-line no-var
+  var mongoose: CachedMongoose | undefined;
+}
+
+let cached = global.mongoose!;
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+  cached = global.mongoose = { conn: null, promise: null, models: {} };
 }
 
 async function connectMongoDB() {
@@ -29,6 +40,8 @@ async function connectMongoDB() {
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      // Copy models to cached.models to ensure single mongoose instance models
+      cached.models = mongoose.models;
       return mongoose;
     }).catch((error) => {
       cached.promise = null;
