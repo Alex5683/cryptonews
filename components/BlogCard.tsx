@@ -37,7 +37,7 @@ export default function BlogCard({ post }: BlogCardProps) {
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
         <div className="absolute top-4 left-4">
-          <Badge variant="secondary" className="bg-white/90 text-gray-800">
+          <Badge variant="default" className="bg-white/90 text-gray-800">
             {post.categoryId.name}
           </Badge>
         </div>
